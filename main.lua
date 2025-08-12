@@ -1,5 +1,4 @@
--- main.lua
-local gui = require(path.to.gui) -- Replace with actual module path
+local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/NinR3227/Test/main/GUI.lua"))()
 
 local contentFrame = GUI.contentFrame
 local minimizeButton = GUI.minimizeButton

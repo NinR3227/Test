@@ -12,7 +12,6 @@ return function()
     mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
     mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     mainFrame.BorderSizePixel = 0
-
     Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
 
     local shadow = Instance.new("ImageLabel", mainFrame)
@@ -61,32 +60,7 @@ return function()
         screenGui:Destroy()
     end)
 
-    local minimizeBtn = Instance.new("TextButton", titleBar)
-    minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
-    minimizeBtn.Position = UDim2.new(1, -70, 0, 5)
-    minimizeBtn.Text = "-"
-    minimizeBtn.TextColor3 = Color3.new(1, 1, 1)
-    minimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
-    minimizeBtn.Font = Enum.Font.GothamBold
-    minimizeBtn.TextSize = 16
-    Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
-
-local isMinimized = false
-
-minimizeBtn.MouseButton1Click:Connect(function()
-    isMinimized = not isMinimized
-
-    tabContainer.Visible = not isMinimized
-    contentFrame.Visible = not isMinimized
-
-    -- Optional: shrink frame height when minimized
-    if isMinimized then
-        mainFrame.Size = UDim2.new(0, 500, 0, 60)
-    else
-        mainFrame.Size = UDim2.new(0, 500, 0, 350)
-    end
-end)
-
+    -- Create tabContainer and contentFrame BEFORE minimize logic
     local tabContainer = Instance.new("Frame", mainFrame)
     tabContainer.Size = UDim2.new(0, 120, 1, -40)
     tabContainer.Position = UDim2.new(0, 0, 0, 40)
@@ -99,6 +73,25 @@ end)
     contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     contentFrame.BorderSizePixel = 0
     contentFrame.Name = "ContentFrame"
+
+    -- Now create minimize button AFTER tabContainer and contentFrame exist
+    local minimizeBtn = Instance.new("TextButton", titleBar)
+    minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
+    minimizeBtn.Position = UDim2.new(1, -70, 0, 5)
+    minimizeBtn.Text = "-"
+    minimizeBtn.TextColor3 = Color3.new(1, 1, 1)
+    minimizeBtn.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+    minimizeBtn.Font = Enum.Font.GothamBold
+    minimizeBtn.TextSize = 16
+    Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
+
+    local isMinimized = false
+    minimizeBtn.MouseButton1Click:Connect(function()
+        isMinimized = not isMinimized
+        tabContainer.Visible = not isMinimized
+        contentFrame.Visible = not isMinimized
+        mainFrame.Size = isMinimized and UDim2.new(0, 500, 0, 60) or UDim2.new(0, 500, 0, 350)
+    end)
 
     local tabs = {
         {Name = "Main", Content = "Welcome to Germa66."},
@@ -115,7 +108,6 @@ end)
         button.Font = Enum.Font.Gotham
         button.TextSize = 16
         button.BorderSizePixel = 0
-
         Instance.new("UICorner", button).CornerRadius = UDim.new(0, 6)
 
         button.MouseEnter:Connect(function()
@@ -128,7 +120,6 @@ end)
 
         button.MouseButton1Click:Connect(function()
             contentFrame:ClearAllChildren()
-
             local label = Instance.new("TextLabel", contentFrame)
             label.Size = UDim2.new(1, -20, 1, -20)
             label.Position = UDim2.new(0, 10, 0, 10)
@@ -142,7 +133,6 @@ end)
 
         if i == 1 then
             contentFrame:ClearAllChildren()
-
             local label = Instance.new("TextLabel", contentFrame)
             label.Size = UDim2.new(1, -20, 1, -20)
             label.Position = UDim2.new(0, 10, 0, 10)

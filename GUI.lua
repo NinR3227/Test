@@ -1,4 +1,3 @@
--- gui.lua
 local Players = game:GetService("Players")
 local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 

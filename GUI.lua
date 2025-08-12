@@ -71,9 +71,9 @@ return function()
     minimizeBtn.TextSize = 16
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
 
-    local isMinimized = false
+local isMinimized = false
 
-    minimizeBtn.MouseButton1Click:Connect(function()
+minimizeBtn.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
 
     tabContainer.Visible = not isMinimized

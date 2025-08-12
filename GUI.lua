@@ -1,6 +1,6 @@
--- Main GUI setup
+-- GUI setup
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "CustomGui"
+ScreenGui.Name = "SimpleGui"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame", ScreenGui)
@@ -21,7 +21,7 @@ titleBar.Active = true
 local titleLabel = Instance.new("TextLabel", titleBar)
 titleLabel.Size = UDim2.new(1, -40, 1, 0)
 titleLabel.Position = UDim2.new(0, 0, 0, 0)
-titleLabel.Text = "My GUI"
+titleLabel.Text = "Simple GUI"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Font = Enum.Font.SourceSansBold
@@ -54,33 +54,8 @@ sampleLabel.BackgroundTransparency = 1
 sampleLabel.Font = Enum.Font.SourceSans
 sampleLabel.TextSize = 18
 
--- Minimize logic
-local isMinimized = false
-
-local function updateMinimizeState()
-    if isMinimized then
-        contentFrame.Visible = false
-        minimizeButton.Text = "+"
-        mainFrame.Size = UDim2.new(0, 300, 0, 40)
-        print("Minimized GUI")
-    else
-        contentFrame.Visible = true
-        minimizeButton.Text = "-"
-        mainFrame.Size = UDim2.new(0, 300, 0, 300)
-        print("Restored GUI")
-    end
-end
-
+-- Minimize toggle
 minimizeButton.MouseButton1Click:Connect(function()
-    isMinimized = not isMinimized
-    updateMinimizeState()
-end)
-
--- Restore on title bar click
-titleBar.InputBegan:Connect(function(input)
-    print("Input detected:", input.UserInputType)
-    if isMinimized and input.UserInputType == Enum.UserInputType.MouseButton1 then
-        isMinimized = false
-        updateMinimizeState()
-    end
+    contentFrame.Visible = not contentFrame.Visible
+    minimizeButton.Text = contentFrame.Visible and "-" or "+"
 end)

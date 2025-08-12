@@ -66,8 +66,18 @@ return function()
         end)
 
         if i == 1 then
-            button:Activate()
-            button.MouseButton1Click:Fire()
+            -- Trigger default tab manually
+            contentFrame:ClearAllChildren()
+
+            local label = Instance.new("TextLabel", contentFrame)
+            label.Size = UDim2.new(1, -20, 1, -20)
+            label.Position = UDim2.new(0, 10, 0, 10)
+            label.Text = tab.Content
+            label.TextColor3 = Color3.new(1, 1, 1)
+            label.BackgroundTransparency = 1
+            label.Font = Enum.Font.Gotham
+            label.TextSize = 18
+            label.TextWrapped = true
         end
     end
 end

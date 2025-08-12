@@ -1,6 +1,5 @@
 -- File: MainTab.lua
-local function createMainTab(tabFrame)
-      local Players = game:GetService("Players")
+local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 local Stats = game:GetService("Stats")
 local LocalPlayer = Players.LocalPlayer
@@ -9,11 +8,11 @@ local placeId = game.PlaceId
 local jobId = game.JobId
 local serverVersion = game.PrivateServerId or "Public"
 
-local function createMainTab(tabFrame)
+return function(tabFrame)
     tabFrame:ClearAllChildren()
 
     -- Title
-    local title = Instance.new("TextLabel")
+    local title = Instance.new("TextLabel", tabFrame)
     title.Size = UDim2.new(1, 0, 0, 40)
     title.Position = UDim2.new(0, 0, 0, 0)
     title.BackgroundTransparency = 1
@@ -22,35 +21,32 @@ local function createMainTab(tabFrame)
     title.Font = Enum.Font.GothamBold
     title.TextScaled = true
     title.TextStrokeTransparency = 0.5
-    tabFrame:AddChild(title)
 
     -- Player Info
-    local infoFrame = Instance.new("Frame")
+    local infoFrame = Instance.new("Frame", tabFrame)
     infoFrame.Size = UDim2.new(1, -20, 0, 90)
     infoFrame.Position = UDim2.new(0, 10, 0, 50)
     infoFrame.BackgroundTransparency = 1
-    infoFrame.Layout = Instance.new("UIListLayout", infoFrame)
-    infoFrame.Layout.Padding = UDim.new(0, 5)
+
+    local layout = Instance.new("UIListLayout", infoFrame)
+    layout.Padding = UDim.new(0, 5)
 
     local function addInfo(labelText, value)
-        local label = Instance.new("TextLabel")
+        local label = Instance.new("TextLabel", infoFrame)
         label.Size = UDim2.new(1, 0, 0, 25)
         label.BackgroundTransparency = 1
         label.Text = labelText .. ": " .. tostring(value)
         label.Font = Enum.Font.Gotham
         label.TextColor3 = Color3.fromRGB(255, 255, 255)
         label.TextScaled = true
-        infoFrame:AddChild(label)
     end
 
     addInfo("Player Name", LocalPlayer.Name)
     addInfo("Player Count", #Players:GetPlayers())
     addInfo("Ping", math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
 
-    tabFrame:AddChild(infoFrame)
-
     -- Server Dropdown
-    local dropdown = Instance.new("Frame")
+    local dropdown = Instance.new("Frame", tabFrame)
     dropdown.Size = UDim2.new(1, -20, 0, 200)
     dropdown.Position = UDim2.new(0, 10, 0, 150)
     dropdown.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -61,20 +57,19 @@ local function createMainTab(tabFrame)
     dropdownLayout.Padding = UDim.new(0, 5)
 
     local function addDropdownLabel(text)
-        local label = Instance.new("TextLabel")
+        local label = Instance.new("TextLabel", dropdown)
         label.Size = UDim2.new(1, 0, 0, 25)
         label.BackgroundTransparency = 1
         label.Text = text
         label.Font = Enum.Font.Gotham
         label.TextColor3 = Color3.fromRGB(200, 200, 200)
         label.TextScaled = true
-        dropdown:AddChild(label)
     end
 
     addDropdownLabel("Server ID: " .. jobId)
     addDropdownLabel("Server Version: " .. serverVersion)
 
-    local rejoinBtn = Instance.new("TextButton")
+    local rejoinBtn = Instance.new("TextButton", dropdown)
     rejoinBtn.Size = UDim2.new(1, 0, 0, 30)
     rejoinBtn.Text = "🔁 Rejoin Server"
     rejoinBtn.Font = Enum.Font.GothamBold
@@ -83,9 +78,8 @@ local function createMainTab(tabFrame)
     rejoinBtn.MouseButton1Click:Connect(function()
         TeleportService:TeleportToPlaceInstance(placeId, jobId, LocalPlayer)
     end)
-    dropdown:AddChild(rejoinBtn)
 
-    local hopBtn = Instance.new("TextButton")
+    local hopBtn = Instance.new("TextButton", dropdown)
     hopBtn.Size = UDim2.new(1, 0, 0, 30)
     hopBtn.Text = "🌐 Hop Server"
     hopBtn.Font = Enum.Font.GothamBold
@@ -94,17 +88,15 @@ local function createMainTab(tabFrame)
     hopBtn.MouseButton1Click:Connect(function()
         TeleportService:Teleport(placeId)
     end)
-    dropdown:AddChild(hopBtn)
 
-    local jobIdBox = Instance.new("TextBox")
+    local jobIdBox = Instance.new("TextBox", dropdown)
     jobIdBox.Size = UDim2.new(1, 0, 0, 30)
     jobIdBox.PlaceholderText = "Enter Job ID"
     jobIdBox.Font = Enum.Font.Gotham
     jobIdBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     jobIdBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    dropdown:AddChild(jobIdBox)
 
-    local joinBtn = Instance.new("TextButton")
+    local joinBtn = Instance.new("TextButton", dropdown)
     joinBtn.Size = UDim2.new(1, 0, 0, 30)
     joinBtn.Text = "🚀 Join Job ID"
     joinBtn.Font = Enum.Font.GothamBold
@@ -116,12 +108,15 @@ local function createMainTab(tabFrame)
             TeleportService:TeleportToPlaceInstance(placeId, inputId, LocalPlayer)
         end
     end)
-    dropdown:AddChild(joinBtn)
 
-    tabFrame:AddChild(dropdown)
+    -- Add buttons to dropdown
+    rejoinBtn.Parent = dropdown
+    hopBtn.Parent = dropdown
+    jobIdBox.Parent = dropdown
+    joinBtn.Parent = dropdown
 
     -- Toggle Button
-    local toggleBtn = Instance.new("TextButton")
+    local toggleBtn = Instance.new("TextButton", tabFrame)
     toggleBtn.Size = UDim2.new(0, 150, 0, 30)
     toggleBtn.Position = UDim2.new(0.5, -75, 0, 360)
     toggleBtn.Text = "▼ Server Tools"
@@ -132,10 +127,4 @@ local function createMainTab(tabFrame)
         dropdown.Visible = not dropdown.Visible
         toggleBtn.Text = dropdown.Visible and "▲ Server Tools" or "▼ Server Tools"
     end)
-    tabFrame:AddChild(toggleBtn)
 end
-
-return createMainTab
-end
-
-return createMainTab

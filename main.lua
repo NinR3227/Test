@@ -3,6 +3,7 @@ local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/NinR3227/
 local contentFrame = GUI.contentFrame
 local minimizeButton = GUI.minimizeButton
 local titleBar = GUI.titleBar
+local createMainTab = GUI.createMainTab
 
 -- Minimize toggle
 minimizeButton.MouseButton1Click:Connect(function()

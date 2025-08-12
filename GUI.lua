@@ -132,10 +132,11 @@ for i, tab in ipairs(tabs) do
     end)
 
     button.MouseButton1Click:Connect(function()
-        contentFrame:ClearAllChildren()
-			if tab.Callbackthen
-				tab.Callback(contentFrame)
-			end
+    contentFrame:ClearAllChildren()
+
+    if tab.Callback then
+        tab.Callback(contentFrame)
+    elseif tab.Content then
         local label = Instance.new("TextLabel", contentFrame)
         label.Size = UDim2.new(1, -20, 1, -20)
         label.Position = UDim2.new(0, 10, 0, 10)
@@ -145,10 +146,14 @@ for i, tab in ipairs(tabs) do
         label.Font = Enum.Font.Gotham
         label.TextSize = 18
         label.TextWrapped = true
-    end)
+    end
+end)
 
-    if i == 1 then
-        contentFrame:ClearAllChildren()
+if i == 1 then
+    contentFrame:ClearAllChildren()
+    if tab.Callback then
+        tab.Callback(contentFrame)
+    elseif tab.Content then
         local label = Instance.new("TextLabel", contentFrame)
         label.Size = UDim2.new(1, -20, 1, -20)
         label.Position = UDim2.new(0, 10, 0, 10)

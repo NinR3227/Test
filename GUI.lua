@@ -60,7 +60,6 @@ return function()
         screenGui:Destroy()
     end)
 
-    -- Create tabContainer and contentFrame BEFORE minimize logic
     local tabContainer = Instance.new("Frame", mainFrame)
     tabContainer.Size = UDim2.new(0, 120, 1, -40)
     tabContainer.Position = UDim2.new(0, 0, 0, 40)
@@ -74,7 +73,6 @@ return function()
     contentFrame.BorderSizePixel = 0
     contentFrame.Name = "ContentFrame"
 
-    -- Now create minimize button AFTER tabContainer and contentFrame exist
     local minimizeBtn = Instance.new("TextButton", titleBar)
     minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
     minimizeBtn.Position = UDim2.new(1, -70, 0, 5)
@@ -86,11 +84,23 @@ return function()
     Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
 
     local isMinimized = false
-    minimizeBtn.MouseButton1Click:Connect(function()
-        isMinimized = not isMinimized
+
+    local function updateMinimizeState()
         tabContainer.Visible = not isMinimized
         contentFrame.Visible = not isMinimized
-        mainFrame.Size = isMinimized and UDim2.new(0, 500, 0, 60) or UDim2.new(0, 500, 0, 350)
+        mainFrame.Size = isMinimized and UDim2.new(0, 500, 0, 40) or UDim2.new(0, 500, 0, 350)
+    end
+
+    minimizeBtn.MouseButton1Click:Connect(function()
+        isMinimized = true
+        updateMinimizeState()
+    end)
+
+    titleBar.InputBegan:Connect(function(input)
+        if isMinimized and input.UserInputType == Enum.UserInputType.MouseButton1 then
+            isMinimized = false
+            updateMinimizeState()
+        end
     end)
 
     local tabs = {

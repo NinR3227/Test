@@ -18,12 +18,23 @@ return function(tabFrame)
     title.Parent = tabFrame
 
     -- Player Info
-    local info = {
-        "Player: " .. player.Name,
-        "Players in Server: " .. #Players:GetPlayers(),
-        "Ping: " .. math.floor(game:GetService("Stats"):FindFirstChild("Network"):FindFirstChild("ServerStatsItem"):FindFirstChild("Data Ping").Value) .. " ms"
-    }
+ local ping = "N/A"
+local success, result = pcall(function()
+    return math.floor(game:GetService("Stats")
+        :FindFirstChild("Network")
+        :FindFirstChild("ServerStatsItem")
+        :FindFirstChild("Data Ping")
+        :GetValue())
+end)
+if success then
+    ping = result .. " ms"
+end
 
+local info = {
+    "Player: " .. player.Name,
+    "Players in Server: " .. #Players:GetPlayers(),
+    "Ping: " .. ping
+}
     for i, text in ipairs(info) do
         local label = Instance.new("TextLabel")
         label.Size = UDim2.new(1, -20, 0, 25)

@@ -3,7 +3,7 @@ return function()
     local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
     local screenGui = Instance.new("ScreenGui", playerGui)
-    screenGui.Name = "VnsHub"
+    screenGui.Name = "Germa66"
     screenGui.ResetOnSpawn = false
 
     local mainFrame = Instance.new("Frame", screenGui)
@@ -13,10 +13,24 @@ return function()
     mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     mainFrame.BorderSizePixel = 0
 
+    local corner = Instance.new("UICorner", mainFrame)
+    corner.CornerRadius = UDim.new(0, 8)
+
+    local shadow = Instance.new("ImageLabel", mainFrame)
+    shadow.Name = "Shadow"
+    shadow.BackgroundTransparency = 1
+    shadow.Size = UDim2.new(1, 20, 1, 20)
+    shadow.Position = UDim2.new(0, -10, 0, -10)
+    shadow.Image = "rbxassetid://1316045217"
+    shadow.ImageTransparency = 0.5
+    shadow.ScaleType = Enum.ScaleType.Slice
+    shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    shadow.ZIndex = -1
+
     local titleBar = Instance.new("TextLabel", mainFrame)
     titleBar.Size = UDim2.new(1, 0, 0, 40)
     titleBar.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    titleBar.Text = "VnsHub"
+    titleBar.Text = "Germa66"
     titleBar.TextColor3 = Color3.new(1, 1, 1)
     titleBar.Font = Enum.Font.GothamBold
     titleBar.TextSize = 20
@@ -25,59 +39,4 @@ return function()
     local tabContainer = Instance.new("Frame", mainFrame)
     tabContainer.Size = UDim2.new(0, 120, 1, -40)
     tabContainer.Position = UDim2.new(0, 0, 0, 40)
-    tabContainer.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    tabContainer.BorderSizePixel = 0
-
-    local contentFrame = Instance.new("Frame", mainFrame)
-    contentFrame.Size = UDim2.new(1, -120, 1, -40)
-    contentFrame.Position = UDim2.new(0, 120, 0, 40)
-    contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    contentFrame.BorderSizePixel = 0
-    contentFrame.Name = "ContentFrame"
-
-    local tabs = {
-        {Name = "Info", Content = "This is the Info tab."},
-        {Name = "Server Hop", Content = "This is the Server Hop tab."}
-    }
-
-    for i, tab in ipairs(tabs) do
-        local button = Instance.new("TextButton", tabContainer)
-        button.Size = UDim2.new(1, 0, 0, 40)
-        button.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
-        button.Text = tab.Name
-        button.TextColor3 = Color3.new(1, 1, 1)
-        button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        button.Font = Enum.Font.Gotham
-        button.TextSize = 16
-        button.BorderSizePixel = 0
-
-        button.MouseButton1Click:Connect(function()
-            contentFrame:ClearAllChildren()
-
-            local label = Instance.new("TextLabel", contentFrame)
-            label.Size = UDim2.new(1, -20, 1, -20)
-            label.Position = UDim2.new(0, 10, 0, 10)
-            label.Text = tab.Content
-            label.TextColor3 = Color3.new(1, 1, 1)
-            label.BackgroundTransparency = 1
-            label.Font = Enum.Font.Gotham
-            label.TextSize = 18
-            label.TextWrapped = true
-        end)
-
-        if i == 1 then
-            -- Trigger default tab manually
-            contentFrame:ClearAllChildren()
-
-            local label = Instance.new("TextLabel", contentFrame)
-            label.Size = UDim2.new(1, -20, 1, -20)
-            label.Position = UDim2.new(0, 10, 0, 10)
-            label.Text = tab.Content
-            label.TextColor3 = Color3.new(1, 1, 1)
-            label.BackgroundTransparency = 1
-            label.Font = Enum.Font.Gotham
-            label.TextSize = 18
-            label.TextWrapped = true
-        end
-    end
-end
+    tabContainer

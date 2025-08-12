@@ -21,7 +21,7 @@ return function(tabFrame)
     local info = {
         "Player: " .. player.Name,
         "Players in Server: " .. #Players:GetPlayers(),
-        "Ping: " .. math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue()) .. " ms"
+        "Ping: " .. math.floor(game:GetService("Stats"):FindFirstChild("Network"):FindFirstChild("ServerStatsItem"):FindFirstChild("Data Ping").Value) .. " ms"
     }
 
     for i, text in ipairs(info) do

@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+local createMainTab = loadstring(game:HttpGet("https://raw.githubusercontent.com/NinR3227/Test/main/MainTab.lua"))()
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "Germa66"

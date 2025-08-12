@@ -28,6 +28,14 @@ return function()
     local titleBar = Instance.new("Frame", mainFrame)
     titleBar.Size = UDim2.new(1, 0, 0, 40)
     titleBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    titleBar.Active = true
+    titleBar.InputBegan:Connect(function(input)
+    	if isMinimized and input.UserInputType == Enum.Usertype.MouseButton1 then
+			isMinimized = false
+			updateMinimizeState()
+			print("Restoring GUI...") -- optional debug print
+		end
+	end)
 
     local gradient = Instance.new("UIGradient", titleBar)
     gradient.Color = ColorSequence.new{

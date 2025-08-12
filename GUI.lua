@@ -11,15 +11,32 @@ mainFrame.Name = "MainFrame"
 mainFrame.Size = UDim2.new(0, 500, 0, 350)
 mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
 mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+mainFrame.BackgroundTransparency = 0.3
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
 mainFrame.Draggable = true
-Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
+
+local corner = Instance.new("UICorner", mainFrame)
+corner.CornerRadius = UDim.new(0, 10)
+
+-- Yellow Glow
+local glow = Instance.new("UIStroke", mainFrame)
+glow.Thickness = 2
+glow.Transparency = 0.3
+glow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local glowGradient = Instance.new("UIGradient", glow)
+glowGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0))
+}
+glowGradient.Rotation = 0
 
 -- Title Bar
 local titleBar = Instance.new("Frame", mainFrame)
 titleBar.Size = UDim2.new(1, 0, 0, 40)
 titleBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+titleBar.BackgroundTransparency = 0.3
 titleBar.BorderSizePixel = 0
 titleBar.Active = true
 
@@ -71,6 +88,7 @@ local menuFrame = Instance.new("Frame", mainFrame)
 menuFrame.Size = UDim2.new(0, 120, 1, -40)
 menuFrame.Position = UDim2.new(0, 0, 0, 40)
 menuFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+menuFrame.BackgroundTransparency = 0.3
 menuFrame.BorderSizePixel = 0
 
 -- Content Area
@@ -78,6 +96,7 @@ local contentFrame = Instance.new("Frame", mainFrame)
 contentFrame.Size = UDim2.new(1, -120, 1, -40)
 contentFrame.Position = UDim2.new(0, 120, 0, 40)
 contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+contentFrame.BackgroundTransparency = 0.3
 contentFrame.BorderSizePixel = 0
 
 -- Tabs
@@ -94,6 +113,7 @@ for i, tab in ipairs(tabs) do
     button.Text = tab.Name
     button.TextColor3 = Color3.new(1, 1, 1)
     button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    button.BackgroundTransparency = 0.3
     button.Font = Enum.Font.Gotham
     button.TextSize = 16
     button.BorderSizePixel = 0
@@ -134,11 +154,23 @@ for i, tab in ipairs(tabs) do
     end
 end
 
--- Minimize logic
+-- Minimize logic (actual shrink)
+local isMinimized = false
 minimizeBtn.MouseButton1Click:Connect(function()
-    contentFrame.Visible = not contentFrame.Visible
-    menuFrame.Visible = not menuFrame.Visible
-    minimizeBtn.Text = contentFrame.Visible and "-" or "+"
+    isMinimized = not isMinimized
+    if isMinimized then
+        menuFrame.Visible = false
+        contentFrame.Visible = false
+        mainFrame.Size = UDim2.new(0, 200, 0, 40)
+        titleLabel.Text = "Germa66 [Minimized]"
+        minimizeBtn.Text = "+"
+    else
+        menuFrame.Visible = true
+        contentFrame.Visible = true
+        mainFrame.Size = UDim2.new(0, 500, 0, 350)
+        titleLabel.Text = "Germa66"
+        minimizeBtn.Text = "-"
+    end
 end)
 
 return {

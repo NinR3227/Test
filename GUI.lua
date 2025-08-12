@@ -154,28 +154,44 @@ for i, tab in ipairs(tabs) do
     end
 end
 
--- Minimize logic (actual shrink)
+-- Minimize logic (clean toggle via title click)
 local isMinimized = false
-minimizeBtn.MouseButton1Click:Connect(function()
-    isMinimized = not isMinimized
+
+local function minimizeUI()
+    isMinimized = true
+    menuFrame.Visible = false
+    contentFrame.Visible = false
+    mainFrame.Size = UDim2.new(0, 200, 0, 40)
+    titleLabel.Text = "Germa66"
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+    minimizeBtn.Visible = false
+    closeBtn.Visible = false
+end
+
+local function maximizeUI()
+    isMinimized = false
+    menuFrame.Visible = true
+    contentFrame.Visible = true
+    mainFrame.Size = UDim2.new(0, 500, 0, 350)
+    titleLabel.Text = "Germa66"
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    minimizeBtn.Visible = true
+    closeBtn.Visible = true
+end
+
+minimizeBtn.MouseButton1Click:Connect(minimizeUI)
+
+titleLabel.MouseButton1Click:Connect(function()
     if isMinimized then
-        menuFrame.Visible = false
-        contentFrame.Visible = false
-        mainFrame.Size = UDim2.new(0, 200, 0, 40)
-        titleLabel.Text = "Germa66 [Minimized]"
-        minimizeBtn.Text = "+"
-    else
-        menuFrame.Visible = true
-        contentFrame.Visible = true
-        mainFrame.Size = UDim2.new(0, 500, 0, 350)
-        titleLabel.Text = "Germa66"
-        minimizeBtn.Text = "-"
+        maximizeUI()
     end
 end)
 
-return {
-    mainFrame = mainFrame,
-    titleBar = titleBar,
-    minimizeButton = minimizeBtn,
-    contentFrame = contentFrame
-}
+-- Make titleLabel clickable
+titleLabel.Active = true
+titleLabel.MouseEnter:Connect(function()
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+end)
+titleLabel.MouseLeave:Connect(function()
+    titleLabel.TextColor3 = Color3.new(1, 1, 1)
+end)

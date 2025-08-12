@@ -88,7 +88,7 @@ return function()
     local function updateMinimizeState()
         tabContainer.Visible = not isMinimized
         contentFrame.Visible = not isMinimized
-        mainFrame.Size = isMinimized and UDim2.new(0, 500, 0, 40) or UDim2.new(0, 500, 0, 350)
+        mainFrame.Size = isMinimized and UDim2.new(0, 500, 0, 40)
     end
 
     minimizeBtn.MouseButton1Click:Connect(function()

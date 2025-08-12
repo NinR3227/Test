@@ -1,9 +1,9 @@
 -- main.lua
 local gui = require(path.to.gui) -- Replace with actual module path
 
-local contentFrame = gui.contentFrame
-local minimizeButton = gui.minimizeButton
-local titleBar = gui.titleBar
+local contentFrame = GUI.contentFrame
+local minimizeButton = GUI.minimizeButton
+local titleBar = GUI.titleBar
 
 -- Minimize toggle
 minimizeButton.MouseButton1Click:Connect(function()

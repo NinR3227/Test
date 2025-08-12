@@ -208,3 +208,11 @@ end)
 titleButton.MouseLeave:Connect(function()
     titleButton.TextColor3 = Color3.new(1, 1, 1)
 end)
+
+local GUI = {
+    contentFrame = contentFrame,
+    minimizeButton = minimizeBtn,
+    titleBar = titleButton,
+    createMainTab = createMainTab
+}
+return GUI

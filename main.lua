@@ -1,12 +1,20 @@
-local raw = game:HttpGet("https://raw.githubusercontent.com/NinR3227/Test/main/GUI.lua")
-print("Fetched GUI.lua:\n", raw)
+local GUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/NinR3227/Test/main/GUI.lua"))()
 
-local func = loadstring(raw)
-print("Type of loaded function:", typeof(func))
+local contentFrame = GUI.contentFrame
+local minimizeButton = GUI.minimizeButton
+local titleBar = GUI.titleBar
+local createMainTab = GUI.createMainTab
 
-if func then
-    local GUI = func()
-    print("GUI loaded:", typeof(GUI))
-else
-    warn("Failed to load GUI.lua")
-end
+-- Minimize toggle
+minimizeButton.MouseButton1Click:Connect(function()
+    contentFrame.Visible = false
+    minimizeButton.Text = "+"
+end)
+
+-- Restore on title bar click
+titleBar.InputBegan:Connect(function(input)
+    if not contentFrame.Visible and input.UserInputType == Enum.UserInputType.MouseButton1 then
+        contentFrame.Visible = true
+        minimizeButton.Text = "-"
+    end
+end)

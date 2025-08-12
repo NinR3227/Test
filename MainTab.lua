@@ -1,5 +1,6 @@
 return function(tabFrame)
     print("MainTab loaded successfully!")
+
     local label = Instance.new("TextLabel")
     label.Size = UDim2.new(1, 0, 1, 0)
     label.Text = "Main Tab Active"

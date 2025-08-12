@@ -47,15 +47,18 @@ gradient.Color = ColorSequence.new{
 }
 gradient.Rotation = 90
 
-local titleLabel = Instance.new("TextLabel", titleBar)
-titleLabel.Size = UDim2.new(1, -80, 1, 0)
-titleLabel.Position = UDim2.new(0, 10, 0, 0)
-titleLabel.Text = "Germa66"
-titleLabel.TextColor3 = Color3.new(1, 1, 1)
-titleLabel.BackgroundTransparency = 1
-titleLabel.Font = Enum.Font.GothamBold
-titleLabel.TextSize = 20
-titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+local titleButton = Instance.new("TextButton", titleBar)
+titleButton.Name = "TitleButton"
+titleButton.Size = UDim2.new(1, -80, 1, 0)
+titleButton.Position = UDim2.new(0, 10, 0, 0)
+titleButton.Text = "Germa66"
+titleButton.TextColor3 = Color3.new(1, 1, 1)
+titleButton.BackgroundTransparency = 1
+titleButton.Font = Enum.Font.GothamBold
+titleButton.TextSize = 20
+titleButton.TextXAlignment = Enum.TextXAlignment.Left
+titleButton.AutoButtonColor = false
+titleButton.Active = true
 
 -- Close Button
 local closeBtn = Instance.new("TextButton", titleBar)
@@ -162,8 +165,8 @@ local function minimizeUI()
     menuFrame.Visible = false
     contentFrame.Visible = false
     mainFrame.Size = UDim2.new(0, 200, 0, 40)
-    titleLabel.Text = "Germa66"
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+    titleButton.Text = "Germa66"
+    titleButton.TextXAlignment = Enum.TextXAlignment.Center
     minimizeBtn.Visible = false
     closeBtn.Visible = false
 end
@@ -173,25 +176,26 @@ local function maximizeUI()
     menuFrame.Visible = true
     contentFrame.Visible = true
     mainFrame.Size = UDim2.new(0, 500, 0, 350)
-    titleLabel.Text = "Germa66"
-    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleButton.Text = "Germa66"
+    titleButton.TextXAlignment = Enum.TextXAlignment.Left
     minimizeBtn.Visible = true
     closeBtn.Visible = true
 end
 
 minimizeBtn.MouseButton1Click:Connect(minimizeUI)
 
-titleLabel.MouseButton1Click:Connect(function()
+titleButton.MouseButton1Click:Connect(function()
     if isMinimized then
         maximizeUI()
     end
 end)
 
+
 -- Make titleLabel clickable
-titleLabel.Active = true
-titleLabel.MouseEnter:Connect(function()
-    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+titleButton.Active = true
+titleButton.MouseEnter:Connect(function()
+    titleButton.TextColor3 = Color3.fromRGB(255, 255, 0)
 end)
-titleLabel.MouseLeave:Connect(function()
-    titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleButton.MouseLeave:Connect(function()
+    titleButton.TextColor3 = Color3.new(1, 1, 1)
 end)

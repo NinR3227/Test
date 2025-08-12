@@ -164,7 +164,7 @@ local function minimizeUI()
     isMinimized = true
     menuFrame.Visible = false
     contentFrame.Visible = false
-    mainFrame.Size = UDim2.new(0, 200, 0, 40)
+    mainFrame.Size = UDim2.new(0, 175, 0, 40)
     titleButton.Text = "Germa66"
     titleButton.TextXAlignment = Enum.TextXAlignment.Center
     minimizeBtn.Visible = false

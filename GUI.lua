@@ -105,7 +105,7 @@ contentFrame.BorderSizePixel = 0
 
 -- Tabs
 local tabs = {
-    {Name = "Main", Content = "Welcome to Germa66."},
+    {Name = "Main", Callback = createMainTab},
     {Name = "Automation", Content = "Automation tools go here."},
     {Name = "Misc", Content = "Miscellaneous features."}
 }
@@ -133,6 +133,9 @@ for i, tab in ipairs(tabs) do
 
     button.MouseButton1Click:Connect(function()
         contentFrame:ClearAllChildren()
+			if tab.Callbackthen
+				tab.Callback(contentFrame)
+			end
         local label = Instance.new("TextLabel", contentFrame)
         label.Size = UDim2.new(1, -20, 1, -20)
         label.Position = UDim2.new(0, 10, 0, 10)
